@@ -43,7 +43,7 @@ print(f"Global min time: {global_min}, Global max time: {global_max}")
 vmin = global_min
 vmax = global_max
 norm = Normalize(vmin=vmin, vmax=vmax)
-cmap = cm.viridis
+cmap = cm.coolwarm
 
 # %%
 # Step 2: Create the plot
@@ -79,13 +79,13 @@ for a in ax:
     gl.ylabel_style = {'size': 8, 'color': 'black'}
 
 # Adjust plot extents
-ax[0].set_extent([-126, -123.5, 36.5, 37.5], crs=ccrs.PlateCarree())
-ax[1].set_extent([-126, -122, 36.5, 39], crs=ccrs.PlateCarree())
+ax[1].set_extent([-126, -123.5, 36.5, 37.5], crs=ccrs.PlateCarree())
+ax[0].set_extent([-126, -122, 36.5, 39], crs=ccrs.PlateCarree())
 
 # Add a single color bar for both panels
 sm = cm.ScalarMappable(cmap=cmap, norm=norm)
 sm.set_array([])
-cbar_ax = fig.add_axes([0.95, 0.01, 0.02, 0.5])  # [left, bottom, width, height]
+cbar_ax = fig.add_axes([0.95, 0.1, 0.02, 0.8])  # [left, bottom, width, height]
 cbar = fig.colorbar(sm, cax=cbar_ax, orientation='vertical')
 cbar.set_label('Date')
 
@@ -101,8 +101,8 @@ cbar.set_ticks(date_ticks)
 cbar.set_ticklabels([(base_date + timedelta(days=int(tick - vmin))).strftime('%Y-%m-%d') for tick in date_ticks])
 
 # Add titles
-ax[0].set_title('Zoomed Location of UCTD Casts')
-ax[1].set_title('Location of UCTD Casts')
+ax[1].set_title('Zoomed Location of UCTD Casts')
+ax[0].set_title('Location of UCTD Casts')
 
 plt.show()
 plt.savefig(f'../img/UCTD_location_{campaign}.png')
